@@ -18,7 +18,7 @@ au = lambda df: df.sum(axis=0)
 avg = lambda df: df[df != 0].mean(axis=0)
 sc = lambda df: (df != 0).sum(axis=0)
 av = lambda df: (df >= 4).sum(axis=0)
-bc = lambda df: (df.rank(axis=1) - 1).sum(axis=0)
+bc = lambda df: (df[df != 0].rank(axis=1) - 1).sum(axis=0)
 cr = lambda df: np.sign(df.apply(lambda col: np.sign(df.rsub(col, axis=0)).sum(axis=0))).sum(axis=0)
 rs = lambda df, top=10: pd.DataFrame([e(df).sort_values(ascending=False).index[:top] + 1 for e in (au, avg, sc, av, bc, cr)], index=pd.Index(("AU", "AVG", "SC", "AV", "BC", "CR"), name="method"), columns=pd.RangeIndex(1, top + 1, name="rank")).T
 
